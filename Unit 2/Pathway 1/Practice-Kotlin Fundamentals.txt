@@ -1,0 +1,218 @@
+CODE : Mobile Notifications
+
+fun main() {
+    val morningNotification = 51
+    val eveningNotification = 135
+    
+    printNotificationSummary(morningNotification)
+    printNotificationSummary(eveningNotification)
+}
+
+
+fun printNotificationSummary(numberOfMessages: Int) {
+    if (numberOfMessages < 100) {
+        println("You have $numberOfMessages notifications.")
+    } else {
+        println("Your phone is blowing up! You have 99+ notifications.")
+    }
+}
+
+-------------------------------------------------------------------------------------------------------
+
+CODE : Movie-ticket price
+
+fun main() {
+    val child = 5
+    val adult = 28
+    val senior = 87
+    
+    val isMonday = true
+    
+    println("The movie ticket price for a person aged $child is \$${ticketPrice(child, isMonday)}.")
+    println("The movie ticket price for a person aged $adult is \$${ticketPrice(adult, isMonday)}.")
+    println("The movie ticket price for a person aged $senior is \$${ticketPrice(senior, isMonday)}.")
+}
+
+fun ticketPrice(age: Int, isMonday: Boolean): Int {
+    if (age in 0..12) {
+        return 15 // Children's ticket price
+    } else if (age in 13..60) {
+        return if (isMonday) 25 else 30 // Standard ticket price (with Monday discount)
+    } else if (age in 61..100) {
+        return 20 // Senior ticket price
+    } else {
+        return -1 // Invalid age
+    }
+}
+
+-------------------------------------------------------------------------------------------------------
+
+CODE : Temperature Converter
+
+fun main() {
+    printFinalTemperature(27.0, "Celsius", "Fahrenheit") { celsiusToFahrenheit(it) }
+    printFinalTemperature(350.0, "Kelvin", "Celsius") { kelvinToCelsius(it) }
+    printFinalTemperature(10.0, "Fahrenheit", "Kelvin") { fahrenheitToKelvin(it) }
+}
+
+fun celsiusToFahrenheit(celsius: Double): Double {
+    return 9.0/5.0 * celsius + 32.0
+}
+
+fun kelvinToCelsius(kelvin: Double): Double {
+    return kelvin - 273.15
+}
+
+fun fahrenheitToKelvin(fahrenheit: Double): Double {
+    return 5.0/9.0 * (fahrenheit - 32.0) + 273.15
+}
+
+fun printFinalTemperature(
+    initialMeasurement: Double, 
+    initialUnit: String, 
+    finalUnit: String, 
+    conversionFormula: (Double) -> Double
+) {
+    val finalMeasurement = String.format("%.2f", conversionFormula(initialMeasurement)) // two decimal places
+    println("$initialMeasurement degrees $initialUnit is $finalMeasurement degrees $finalUnit.")
+}
+
+
+-------------------------------------------------------------------------------------------------------
+
+CODE : Song Catalog
+
+class Song(val title: String, val artist: String, val yearPublished: Int, val playCount: Int) {
+    val isPopular: Boolean
+        get() = playCount >= 1000
+
+    fun printSongDescription() {
+        println("$title, performed by $artist, was released in $yearPublished.")
+    }
+}
+
+fun main() {
+    // Create an instance of the Song class
+    val song = Song("Example Song", "Artist Name", 2023, 1200)
+
+    // Print song description
+    song.printSongDescription()
+
+    // Check if the song is popular
+    if (song.isPopular) {
+        println("This song is popular!")
+    } else {
+        println("This song is not popular.")
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------
+
+CODE : Internet Profile
+
+class Person(val name: String, val age: Int, val hobby: String?, val referrer: Person?) {
+    fun showProfile() {
+        println("Name: $name")
+        println("Age: $age")
+        if (hobby != null) {
+            println("Likes to $hobby.")
+        } else {
+            println("No specific hobby mentioned.")
+        }
+        if (referrer != null) {
+            println("Has a referrer named ${referrer.name}, who likes to ${referrer.hobby ?: "do something"}.")
+        } else {
+            println("Doesn't have a referrer.")
+        }
+        println()
+    }
+}
+
+fun main() {
+    val amanda = Person("Amanda", 33, "play tennis", null)
+    val atiqah = Person("Atiqah", 28, "climb", amanda)
+
+    amanda.showProfile()
+    atiqah.showProfile()
+}
+
+
+-------------------------------------------------------------------------------------------------------
+
+CODE : Foldable Phones
+
+open class Phone(var isScreenLightOn: Boolean = false){
+    open fun switchOn() {
+        isScreenLightOn = true
+    }
+    
+    open fun switchOff() {
+        isScreenLightOn = false
+    }
+    
+    fun checkPhoneScreenLight() {
+        val phoneScreenLight = if (isScreenLightOn) "on" else "off"
+        println("The phone screen's light is $phoneScreenLight.")
+    }
+}
+
+class FoldablePhone(var isFolded: Boolean = false) : Phone() {
+    override fun switchOn() {
+        if (!isFolded) {
+            isScreenLightOn = true
+        }
+    }
+
+    fun fold() {
+        isFolded = true
+        isScreenLightOn = false
+        println("The phone is folded.")
+    }
+
+    fun unfold() {
+        isFolded = false
+        println("The phone is unfolded.")
+    }
+}
+
+fun main() {
+    val regularPhone = Phone()
+    val foldablePhone = FoldablePhone()
+
+    regularPhone.switchOn()
+    regularPhone.checkPhoneScreenLight()
+
+    foldablePhone.switchOn()
+    foldablePhone.checkPhoneScreenLight()
+
+    foldablePhone.fold()
+    foldablePhone.switchOn()
+    foldablePhone.checkPhoneScreenLight()
+
+    foldablePhone.unfold()
+    foldablePhone.switchOn()
+    foldablePhone.checkPhoneScreenLight()
+}
+
+
+
+-------------------------------------------------------------------------------------------------------
+
+Code : Special Auction
+
+class Bid(val amount: Int, val bidder: String)
+
+fun auctionPrice(bid: Bid?, minimumPrice: Int): Int {
+    return bid?.amount ?: minimumPrice
+}
+
+fun main() {
+    val winningBid = Bid(5000, "Private Collector")
+
+    println("Item A is sold at ${auctionPrice(winningBid, 2000)}.")
+    println("Item B is sold at ${auctionPrice(null, 3000)}.")
+}
+
+
+-------------------------------------------------------------------------------------------------------
