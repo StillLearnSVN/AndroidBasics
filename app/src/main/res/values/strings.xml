@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Greeting Card</string>
+    <string name="happy_birthday_text">Happy Birthday Ria Anggita!</string>
+    <string name="signature_text">From Samuel Volder</string>
+</resources>
